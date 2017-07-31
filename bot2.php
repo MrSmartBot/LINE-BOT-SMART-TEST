@@ -2,36 +2,16 @@
  
 $strAccessToken = "t+vxAVs/5b1LKG2X/5/VJ1S3rh8tyzZvzfqTHrT3+SZ5+d37fILV/QQZvhx12e9u5Mv2E0FbS8xxSzq5l5z3/ro69UZ9ztFNfhBZVuvLLjiFGkZJc0vRQSD0VNn+/MAzKZ3OkFbyfr80R+6QA6xOlAdB04t89/1O/w1cDnyilFU=";
  
-$content = file_get_contents('php://input');
-$arrJson = json_decode($content, true);
- 
-$strUrl = "https://api.line.me/v2/bot/message/reply";
+$strUrl = "https://api.line.me/v2/bot/message/push";
  
 $arrHeader = array();
 $arrHeader[] = "Content-Type: application/json";
 $arrHeader[] = "Authorization: Bearer {$strAccessToken}";
  
-if($arrJson['events'][0]['message']['text'] == "สวัสดี"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "สวัสดี ID คุณคือ ".$arrJson['events'][0]['source']['userId'];
-}else if($arrJson['events'][0]['message']['text'] == "ชื่ออะไร"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "ฉันยังไม่มีชื่อนะ";
-}else if($arrJson['events'][0]['message']['text'] == "ทำอะไรได้บ้าง"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "ฉันทำอะไรไม่ได้เลย คุณต้องสอนฉันอีกเยอะ";
-}else{
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "ฉันไม่เข้าใจคำสั่ง";
-}
+$arrPostData = array();
+$arrPostData['to'] = "USER_ID";
+$arrPostData['messages'][0]['type'] = "text";
+$arrPostData['messages'][0]['text'] = "นี้คือการทดสอบ Push Message";
  
  
 $ch = curl_init();
